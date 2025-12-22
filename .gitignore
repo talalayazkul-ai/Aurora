@@ -21,3 +21,8 @@ build/
 .python-version
 .mypy_cache/
 .pytest_cache/
+
+# runtime outputs
+logs/
+artifacts/
+
