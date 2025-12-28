@@ -5,6 +5,9 @@ from src.exception import CustomException
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransformation 
+from src.components.data_transformation import DataTransformationConfig   
+
 
 @dataclass
 class DataIngestionConfig:
@@ -17,7 +20,7 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self, data_file_path: str):
-        logging.info("Entered the data ingestion method or component")
+        logging.info("Entered the data ingestion metadhod or component")
         try:
             # validate provided path
             if not data_file_path:
@@ -53,4 +56,8 @@ if __name__ == "__main__":
     # accept CLI arg or default to notebook/data/stud.csv
     data_path = sys.argv[1] if len(sys.argv) > 1 else "notebook/data/stud.csv"
     obj = DataIngestion()
-    obj.initiate_data_ingestion(data_path)
+    train_data, test_data = obj.initiate_data_ingestion(data_path)
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
+    logging.info("Initiated data transformation")
