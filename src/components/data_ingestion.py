@@ -53,11 +53,17 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 if __name__ == "__main__":
+    from src.components.model_trainer import ModelTrainer
+
     # accept CLI arg or default to notebook/data/stud.csv
     data_path = sys.argv[1] if len(sys.argv) > 1 else "notebook/data/stud.csv"
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion(data_path)
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
     logging.info("Initiated data transformation")
+
+    model_trainer = ModelTrainer()
+    r2_score = model_trainer.initiate_model_trainer(train_arr, test_arr)
+    logging.info(f"Model training completed. Best model R2 score: {r2_score:.4f}")
