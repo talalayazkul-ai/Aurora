@@ -20,7 +20,7 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self, data_file_path: str):
-        logging.info("Entered the data ingestion metadhod or component")
+        logging.info("Entered the data ingestion method or component")
         try:
             # validate provided path
             if not data_file_path:
